@@ -1,12 +1,13 @@
 import serial
 from xbee import XBee
 
-serial_port = serial.Serial('/dev/ttyACM0', 9600)
+serial_port = serial.Serial('/dev/ttyAMA0', 9600)
 xbee = XBee(serial_port)
 
 while True:
     try:
-        print xbee.wait_read_frame()
+        data = xbee.wait_read_frame()
+        print(data)
     except KeyboardInterrupt:
         break
 
