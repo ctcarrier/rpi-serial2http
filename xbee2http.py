@@ -7,7 +7,9 @@ xbee = XBee(ser = serial_port, escaped = True)
 while True:
     try:
         data = xbee.wait_read_frame()
-        print(data['rf_data'])
+        data_split = data['rf_data'].split(',', 2)
+        print(data_split[0])
+        print(data_split[1])
     except KeyboardInterrupt:
         break
 
