@@ -6,7 +6,7 @@ ser = serial.Serial('/dev/ttyAMA0')
 xbee = XBee(ser)
 
 while True:
-    frame = APIFrame(escaped=self._escaped)
+    frame = APIFrame(escaped=True)
     rcv = ser.read(21)
     print(str(rcv).encode('hex'))
     for b in rcv:
