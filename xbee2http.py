@@ -7,7 +7,7 @@ xbee = XBee(ser = serial_port, escaped = True)
 while True:
     try:
         data = xbee.wait_read_frame()
-        print(data)
+        print(data.rf_data)
     except KeyboardInterrupt:
         break
 
