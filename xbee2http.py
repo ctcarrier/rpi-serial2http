@@ -2,7 +2,7 @@ import serial
 from xbee import XBee
 
 serial_port = serial.Serial('/dev/ttyAMA0', 9600)
-xbee = XBee(serial_port)
+xbee = XBee(ser = serial_port, escaped = True)
 
 while True:
     try:
