@@ -1,5 +1,6 @@
 import serial
 from xbee import XBee
+from xbee.frame import APIFrame
 
 ser = serial.Serial('/dev/ttyAMA0')
 xbee = XBee(ser)
