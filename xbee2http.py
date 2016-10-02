@@ -16,8 +16,8 @@ while True:
     try:
         data = xbee.wait_read_frame()
         data_split = data['rf_data'].split(',', 2)
-        humidity = data_split[0]
-        temp = data_split[1]
+        humidity = int(data_split[0])
+        temp = int(data_split[1])
         timestamp = datetime.datetime.now().isoformat() + 'Z'
         payload = {'humidity': humidity, 'fahrenheit': temp, 'tag': 'test', 'timestamp': timestamp}
         r = requests.post(url, json=payload, auth=(user, password))
