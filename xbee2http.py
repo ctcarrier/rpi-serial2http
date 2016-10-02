@@ -2,6 +2,7 @@ import serial
 from xbee import XBee
 import requests
 import datetime
+import os
 
 serial_port = serial.Serial('/dev/ttyAMA0', 9600)
 xbee = XBee(ser = serial_port, escaped = True)
