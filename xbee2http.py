@@ -10,12 +10,13 @@ import logging
 serial_port = serial.Serial('/dev/ttyAMA0', 9600)
 xbee = XBee(ser = serial_port, escaped = True)
 
-url = 'http://192.168.0.103:9090/api/sensorReadings'
-LOG_FILENAME = '/var/log/xbee2http.log'
-
 user = os.environ['MT_USER']
 password = os.environ['MT_PASSWORD']
 tag = os.environ['SENSOR_TAG']
+host = os.environ['MT_HOST']
+
+url = 'http://' + host + '/api/sensorReadings'
+LOG_FILENAME = '/var/log/xbee2http.log'
 
 logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime)s %(message)s')
 logging.info('Started %s' % __file__)
