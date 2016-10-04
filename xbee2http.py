@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import serial
 from xbee import XBee
 import requests
