@@ -30,9 +30,9 @@ while True:
         timestamp = datetime.datetime.now().isoformat() + 'Z'
         payload = {'humidity': humidity, 'fahrenheit': temp, 'tag': tag, 'timestamp': timestamp}
         logging.info(payload)
-        #r = requests.post(url, json=payload, auth=(user, password))
-        #logging.info(r.status_code)
-        #logging.info(r.text)
+        r = requests.post(url, json=payload, auth=(user, password))
+        logging.info(r.status_code)
+        logging.info(r.text)
     except KeyboardInterrupt:
         break
 
