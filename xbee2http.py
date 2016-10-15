@@ -25,13 +25,14 @@ while True:
     try:
         data = xbee.wait_read_frame()
         data_split = data['rf_data'].split(',', 2)
-        humidity = int(data_split[0])
-        temp = int(data_split[1])
+        humidity = int(data_split[0]) / 100.0
+        temp = int(data_split[1]) / 100.0
         timestamp = datetime.datetime.now().isoformat() + 'Z'
         payload = {'humidity': humidity, 'fahrenheit': temp, 'tag': tag, 'timestamp': timestamp}
-        r = requests.post(url, json=payload, auth=(user, password))
-        logging.info(r.status_code)
-        logging.info(r.text)
+        logging.info(payload)
+        #r = requests.post(url, json=payload, auth=(user, password))
+        #logging.info(r.status_code)
+        #logging.info(r.text)
     except KeyboardInterrupt:
         break
 
