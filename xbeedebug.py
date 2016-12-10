@@ -7,7 +7,7 @@ import datetime
 import os
 import logging
 
-serial_port = serial.Serial('/dev/ttyAMA0', 9600)
+serial_port = serial.Serial('/dev/serial0', 9600)
 xbee = XBee(ser = serial_port, escaped = True)
 
 LOG_FILENAME = '/var/log/xbeedebug.log'
