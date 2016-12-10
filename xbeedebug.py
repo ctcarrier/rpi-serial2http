@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 import serial
-from xbee import XBee
+from xbee import ZigBee
 import requests
 import datetime
 import os
 import logging
 
 serial_port = serial.Serial('/dev/serial0', 9600)
-xbee = XBee(ser = serial_port, escaped = True)
+xbee = ZigBee(ser = serial_port, escaped = True)
 
 LOG_FILENAME = '/var/log/xbeedebug.log'
 
