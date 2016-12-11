@@ -17,10 +17,12 @@ logging.info('Started %s' % __file__)
 
 while True:
     try:
-        data = xbee.wait_read_frame()
-        data_split = data['rf_data'].split(',', 2)
-        logging.info(data['rf_data'])
-        print(data['rf_data'])
+        # data = xbee.wait_read_frame()
+        # data_split = data['rf_data'].split(',', 2)
+        # logging.info(data['rf_data'])
+        # print(data['rf_data'])
+        rcv = serial_port.read(21)
+        print(str(rcv).encode('hex'))
     except KeyboardInterrupt:
         break
 
