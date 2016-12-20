@@ -24,15 +24,35 @@ logging.info('Started %s' % __file__)
 while True:
     try:
         data = xbee.wait_read_frame()
-        data_split = data['rf_data'].split(',', 2)
-        humidity = int(data_split[0]) / 100.0
-        temp = int(data_split[1]) / 100.0
-        timestamp = datetime.datetime.now().isoformat() + 'Z'
-        payload = {'humidity': humidity, 'fahrenheit': temp, 'tag': tag, 'timestamp': timestamp}
-        logging.info(payload)
-        r = requests.post(url, json=payload, auth=(user, password))
-        logging.info(r.status_code)
-        logging.info(r.text)
+
+        source_addr_long = data['source_addr_long']
+        rf_data = data['rf_data']
+        if source_addr_long is None or rf_data is None:
+            print('Not a data packet')
+            print(data)
+        else:
+            split_data = rf_data.split(',')
+            print(rf_data)
+            print(split_data)
+            print(source_addr_long.encode('hex'))
+            sensor, sensor_data = split_data[0], split_data[1:]
+            timestamp = datetime.datetime.now().isoformat() + 'Z'
+            payload = \
+                {
+                    'sensor': sensor,
+                    'sensor_data': sensor_data,
+                    'source_address': source_addr_long.encode('hex'),
+                    'timestamp': timestamp
+                }
+
+            logging.info(payload)
+            #r = requests.post(url, json=payload, auth=(user, password))
+            #logging.info(r.status_code)
+            #logging.info(r.text)
+
+        # humidity = int(data_split[0]) / 100.0
+        # temp = int(data_split[1]) / 100.0
+
     except KeyboardInterrupt:
         break
 
