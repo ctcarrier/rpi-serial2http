@@ -27,7 +27,7 @@ while True:
             split_data = rf_data.split(',')
             print(rf_data)
             print(split_data)
-            print(source_addr_long)
+            print(source_addr_long.encode('hex'))
     except KeyboardInterrupt:
         break
 
