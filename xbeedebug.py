@@ -18,9 +18,16 @@ logging.info('Started %s' % __file__)
 while True:
     try:
         data = xbee.wait_read_frame()
-        data_split = data['rf_data'].split(',', 2)
-        logging.info(data['rf_data'])
-        print(data['rf_data'])
+        source_addr_long = data['source_addr_long']
+        rf_data = data['rf_data']
+        if source_addr_long is None or rf_data is None:
+            print('Not a data packet')
+            print(data)
+        else:
+            split_data = rf_data.split(',')
+            print(rf_data)
+            print(split_data)
+            print(source_addr_long)
     except KeyboardInterrupt:
         break
 
