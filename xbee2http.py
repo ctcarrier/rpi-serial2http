@@ -12,7 +12,6 @@ xbee = XBee(ser = serial_port, escaped = True)
 
 user = os.environ['MT_USER']
 password = os.environ['MT_PASSWORD']
-tag = os.environ['SENSOR_TAG']
 host = os.environ['MT_HOST']
 
 url = 'http://' + host + '/api/sensorReadings'
