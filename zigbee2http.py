@@ -34,23 +34,21 @@ while True:
             print(rf_data)
             print(split_data)
             print(source_addr_long.encode('hex'))
-            sensor, sensor_data = split_data[0], split_data[1:]
+            sensor = split_data[0]
+            sensor_data = map(int, split_data[1:])
             timestamp = datetime.datetime.now().isoformat() + 'Z'
             payload = \
                 {
                     'sensor': sensor,
-                    'sensor_data': sensor_data,
-                    'source_address': source_addr_long.encode('hex'),
+                    'sensorData': sensor_data,
+                    'sourceAddress': source_addr_long.encode('hex'),
                     'timestamp': timestamp
                 }
 
             logging.info(payload)
-            #r = requests.post(url, json=payload, auth=(user, password))
-            #logging.info(r.status_code)
-            #logging.info(r.text)
-
-        # humidity = int(data_split[0]) / 100.0
-        # temp = int(data_split[1]) / 100.0
+            r = requests.post(url, json=payload, auth=(user, password))
+            logging.info(r.status_code)
+            logging.info(r.text)
 
     except KeyboardInterrupt:
         break
