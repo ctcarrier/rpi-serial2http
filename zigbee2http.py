@@ -20,6 +20,10 @@ LOG_FILENAME = '/var/log/xbee2http.log'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime)s %(message)s')
 logging.info('Started %s' % __file__)
 
+def convertRawData(d):
+    return int(d) / 100
+
+
 while True:
     try:
         data = xbee.wait_read_frame()
@@ -35,7 +39,7 @@ while True:
             print(split_data)
             print(source_addr_long.encode('hex'))
             sensor = split_data[0]
-            sensor_data = map(int, split_data[1:])
+            sensor_data = map(convertRawData, split_data[1:])
             timestamp = datetime.datetime.now().isoformat() + 'Z'
             payload = \
                 {
