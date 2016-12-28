@@ -28,8 +28,8 @@ while True:
     try:
         data = xbee.wait_read_frame()
 
-        source_addr_long = data['source_addr_long']
         rf_data = data['rf_data']
+        source_addr_long = rf_data['source_addr_long']
         if source_addr_long is None or rf_data is None:
             print('Not a data packet')
             print(data)
