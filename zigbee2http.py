@@ -55,6 +55,8 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
 
+    except ValueError:
+        pass
     except KeyboardInterrupt:
         break
 
