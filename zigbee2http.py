@@ -22,7 +22,7 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime
 logging.info('Started %s' % __file__)
 
 def convertRawData(d):
-    return (Decimal(d) * 1.0) / 100
+    return float(d) / 100
 
 
 while True:
