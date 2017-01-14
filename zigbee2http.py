@@ -6,6 +6,7 @@ import requests
 import datetime
 import os
 import logging
+from decimal import Decimal
 
 serial_port = serial.Serial('/dev/serial0', 9600)
 xbee = ZigBee(ser = serial_port, escaped = True)
@@ -21,7 +22,7 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime
 logging.info('Started %s' % __file__)
 
 def convertRawData(d):
-    return int(d) / 100
+    return Decimal(d) / 100
 
 
 while True:
