@@ -58,7 +58,8 @@ while True:
 
     except KeyboardInterrupt:
         break
-    except:
+    except Exception as e:
+        logging.exception("An error occured, continuing")
         pass
 
 serial_port.close()
