@@ -62,11 +62,11 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == '0013a200410464c0':
-                if sensor == 'sht01':
-                    if sensorData < 90:
+                if sensor == 'SHT01':
+                    if sensorData[0] < 90:
                         logging.info('Setting pin high')
                         GPIO.output(LED,True)
-                    elif sensorData >= 92:
+                    elif sensorData[0] >= 92:
                         logging.info('Setting pin low')
                         GPIO.output(LED,False)
 
