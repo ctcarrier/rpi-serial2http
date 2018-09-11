@@ -66,7 +66,7 @@ while True:
                     if sensor_data[0] < 86:
                         logging.info('Setting pin high')
                         GPIO.output(RELAY,True)
-                    elif sensor_data[0] >= 88:
+                    elif sensor_data[0] >= 87:
                         logging.info('Setting pin low')
                         GPIO.output(RELAY,False)
 
