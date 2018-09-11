@@ -65,10 +65,10 @@ while True:
                 if sensor == 'SHT01':
                     if sensor_data[0] < 90:
                         logging.info('Setting pin high')
-                        GPIO.output(LED,True)
+                        GPIO.output(RELAY,True)
                     elif sensor_data[0] >= 92:
                         logging.info('Setting pin low')
-                        GPIO.output(LED,False)
+                        GPIO.output(RELAY,False)
 
     except KeyboardInterrupt:
         break
