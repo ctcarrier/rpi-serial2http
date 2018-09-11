@@ -7,9 +7,14 @@ import datetime
 import os
 import logging
 from decimal import Decimal
+import RPi.GPIO as GPIO
 
 serial_port = serial.Serial('/dev/serial0', 9600)
 xbee = ZigBee(ser = serial_port, escaped = True)
+
+GPIO.setmode(GPIO.BCM)
+RELAY = 17
+GPIO.setup(RELAY,GPIO.OUT)
 
 user = os.environ['MT_USER']
 password = os.environ['MT_PASSWORD']
@@ -43,11 +48,12 @@ while True:
             sensor = split_data[0]
             sensor_data = map(convertRawData, split_data[1:])
             timestamp = datetime.datetime.now().isoformat() + 'Z'
+            sourceAddress = source_addr_long.encode('hex')
             payload = \
                 {
                     'sensor': sensor,
                     'sensorData': sensor_data,
-                    'sourceAddress': source_addr_long.encode('hex'),
+                    'sourceAddress': sourceAddress,
                     'timestamp': timestamp
                 }
 
@@ -55,6 +61,14 @@ while True:
             r = requests.post(url, json=payload, auth=(user, password))
             logging.info(r.status_code)
             logging.info(r.text)
+            if sourceAddress == '0013a200410464c0':
+                if sensor == 'sht01':
+                    if sensorData < 90:
+                        logging.info('Setting pin high')
+                        GPIO.output(LED,True)
+                    elif sensorData >= 92:
+                        logging.info('Setting pin low')
+                        GPIO.output(LED,False)
 
     except KeyboardInterrupt:
         break
