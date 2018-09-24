@@ -26,6 +26,9 @@ LOG_FILENAME = '/var/log/xbee2http.log'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime)s %(message)s')
 logging.info('Started %s' % __file__)
 
+HUMIDITY_LOW = 90
+HUMIDITY_HIGH = 92
+
 def convertRawData(d):
     return float(d) / 100
 
@@ -63,10 +66,10 @@ while True:
             logging.info(r.text)
             if sourceAddress == '0013a200410464c0':
                 if sensor == 'SHT01':
-                    if sensor_data[0] < 88:
+                    if sensor_data[0] < HUMIDITY_LOW:
                         logging.info('Setting pin high')
                         GPIO.output(RELAY,True)
-                    elif sensor_data[0] >= 90:
+                    elif sensor_data[0] >= HUMIDITY_HIGH:
                         logging.info('Setting pin low')
                         GPIO.output(RELAY,False)
 
