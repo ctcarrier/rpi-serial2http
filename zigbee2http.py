@@ -28,6 +28,8 @@ logging.info('Started %s' % __file__)
 
 HUMIDITY_LOW = 90
 HUMIDITY_HIGH = 92
+SOURCE_ADDR = '0013a200410464c0'
+SENSOR_NAME = 'HX93'
 
 def convertRawData(d):
     return float(d) / 100
@@ -64,8 +66,8 @@ while True:
             r = requests.post(url, json=payload, auth=(user, password))
             logging.info(r.status_code)
             logging.info(r.text)
-            if sourceAddress == '0013a200410464c0':
-                if sensor == 'HX93AV':
+            if sourceAddress == SOURCE_ADDR:
+                if sensor == SENSOR_NAME:
                     if sensor_data[0] < HUMIDITY_LOW:
                         logging.info('Setting pin high')
                         GPIO.output(RELAY,True)
