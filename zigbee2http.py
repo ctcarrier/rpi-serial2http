@@ -65,7 +65,7 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == '0013a200410464c0':
-                if sensor == 'SHT01':
+                if sensor == 'HX93AV':
                     if sensor_data[0] < HUMIDITY_LOW:
                         logging.info('Setting pin high')
                         GPIO.output(RELAY,True)
