@@ -26,8 +26,8 @@ LOG_FILENAME = '/var/log/xbee2http.log'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime)s %(message)s')
 logging.info('Started %s' % __file__)
 
-HUMIDITY_LOW = 88
-HUMIDITY_HIGH = 90
+HUMIDITY_LOW = 85
+HUMIDITY_HIGH = 87
 SOURCE_ADDR = '0013a200410464c0'
 SENSOR_NAME = 'HX93'
 
