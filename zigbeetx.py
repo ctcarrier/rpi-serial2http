@@ -89,16 +89,16 @@ while True:
                 elif sensor == GAS_SENSOR_NAME:
                     if sensor_data[2] < CO2_LOW:
                         logging.info('Ventilation on')
-                        xbee.tx(frame='0x1',
-                            dest_addr_long=VENTILATION_DEST_ADDR_LONG,
-                            dest_addr=VENTILATION_DEST_ADDR,
-                            data=VENTILATION_OFF_DATA)
+                        #xbee.tx(frame='0x1',
+                        #    dest_addr_long=VENTILATION_DEST_ADDR_LONG,
+                        #    dest_addr=VENTILATION_DEST_ADDR,
+                        #    data=VENTILATION_OFF_DATA)
                     elif sensor_data[2] >= CO2_HIGH:
                         logging.info('Ventilation off')
-                        xbee.tx(frame='0x1',
-                            dest_addr_long=VENTILATION_DEST_ADDR_LONG,
-                            dest_addr=VENTILATION_DEST_ADDR,
-                            data=VENTILATION_ON_DATA)
+                        #xbee.tx(frame='0x1',
+                        #    dest_addr_long=VENTILATION_DEST_ADDR_LONG,
+                        #    dest_addr=VENTILATION_DEST_ADDR,
+                        #    data=VENTILATION_ON_DATA)
 
     except KeyboardInterrupt:
         break
