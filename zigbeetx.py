@@ -40,7 +40,7 @@ VENTILATION_DEST_ADDR = "\xFF\xFE"
 VENTILATION_ON_DATA = "\xFF"
 VENTILATION_OFF_DATA = "\x00"
 
-xbee.tx(frame='0x1', dest_addr_long=DEST_ADDR_LONG, dest_addr=DEST_ADDR, data="\x00")
+xbee.tx(frame='0x1', dest_addr_long=VENTILATION_DEST_ADDR_LONG, dest_addr=VENTILATION_DEST_ADDR, data="\x00")
 
 def convertRawData(d):
     return float(d) / 100
@@ -51,12 +51,12 @@ while True:
         data = xbee.wait_read_frame()
 
 
-        print(data)
+        logging.info(data)
         rf_data = data['rf_data']
         source_addr_long = data['source_addr_long']
         if source_addr_long is None or rf_data is None:
-            print('Not a data packet')
-            print(data)
+            logging.error('Not a data packet')
+            logging.error(data)
         else:
             split_data = rf_data.split(',')
             print(rf_data)
