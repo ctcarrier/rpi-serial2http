@@ -8,6 +8,10 @@ import os
 import logging
 from decimal import Decimal
 import RPi.GPIO as GPIO
+from threading import Timer
+
+humidity_running = False
+humidity_start_time = -1
 
 serial_port = serial.Serial('/dev/serial0', 9600)
 xbee = ZigBee(ser = serial_port, escaped = True)
@@ -45,6 +49,24 @@ xbee.tx(frame='0x1', dest_addr_long=VENTILATION_DEST_ADDR_LONG, dest_addr=VENTIL
 def convertRawData(d):
     return float(d) / 100
 
+humidifier_delay = timedelta(seconds=300)
+humidifier_start = datetime.datetime.now() - humidifier_delay
+humidifier_stop = datetime.datetime.now()
+
+class humidity_timer():
+    def __init__(self):
+        humidity_running = True
+        humidifier_start = datetime.datetime.now()
+        logging.info('humidity timer on')
+        GPIO.output(RELAY,True)
+        self.timer = Timer(30,self.relay_off)
+    def relay_off(self):
+        logging.info('humidity timer off')
+        humidity_running = False
+        humidifier_stop = datetime.datetime.now()
+        GPIO.output(RELAY,False)
+
+htimer = humidity_timer()
 
 while True:
     try:
@@ -79,22 +101,23 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == SOURCE_ADDR:
-                if sensor == SENSOR_NAME:
-                    if sensor_data[0] < HUMIDITY_LOW:
+                if (sensor == SENSOR_NAME) && ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
+                    if sensor_data[0] < HUMIDITY_LOW && !htimer.is_alive():
                         logging.info('Setting pin high')
-                        GPIO.output(RELAY,True)
+                        htimer.start()
+
                     elif sensor_data[0] >= HUMIDITY_HIGH:
                         logging.info('Setting pin low')
                         GPIO.output(RELAY,False)
                 elif sensor == GAS_SENSOR_NAME:
                     if sensor_data[2] < CO2_LOW:
-                        logging.info('Ventilation on')
+                        logging.info('Ventilation off')
                         #xbee.tx(frame='0x1',
                         #    dest_addr_long=VENTILATION_DEST_ADDR_LONG,
                         #    dest_addr=VENTILATION_DEST_ADDR,
                         #    data=VENTILATION_OFF_DATA)
                     elif sensor_data[2] >= CO2_HIGH:
-                        logging.info('Ventilation off')
+                        logging.info('Ventilation on')
                         #xbee.tx(frame='0x1',
                         #    dest_addr_long=VENTILATION_DEST_ADDR_LONG,
                         #    dest_addr=VENTILATION_DEST_ADDR,
