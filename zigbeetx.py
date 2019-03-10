@@ -51,7 +51,7 @@ def convertRawData(d):
 
 humidifier_delay = datetime.timedelta(seconds=300)
 humidifier_start = datetime.datetime.now() - humidifier_delay
-humidifier_stop = datetime.datetime.now() - humidifier_delay
+global humidifier_stop = datetime.datetime.now() - humidifier_delay
 
 class humidity_timer():
     def __init__(self):
@@ -67,7 +67,7 @@ class humidity_timer():
     def relay_off(self):
         logging.info('humidity timer off')
         humidity_running = False
-        humidifier_stop = datetime.datetime.now()
+        global humidifier_stop = datetime.datetime.now()
         logging.info(humidifier_stop)
         GPIO.output(RELAY,False)
     def is_alive(self):
