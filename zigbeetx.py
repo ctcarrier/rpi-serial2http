@@ -101,7 +101,7 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == SOURCE_ADDR:
-                if (sensor == SENSOR_NAME) && ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
+                if (sensor == SENSOR_NAME) and ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
                     if sensor_data[0] < HUMIDITY_LOW && !htimer.is_alive():
                         logging.info('Setting pin high')
                         htimer.start()
