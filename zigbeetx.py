@@ -70,6 +70,8 @@ class humidity_timer():
         humidifier_stop = datetime.datetime.now()
         GPIO.output(RELAY,False)
     def is_alive(self):
+        logging.info(self.timer)
+        logging.info(self.timer is not None)
         if self.timer is not None:
             return self.timer.is_alive()
         else:
