@@ -31,7 +31,7 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime
 logging.info('Started %s' % __file__)
 
 HUMIDITY_LOW = 87
-HUMIDITY_HIGH = 88
+HUMIDITY_HIGH = 92
 SOURCE_ADDR = '0013a200410464c0'
 SENSOR_NAME = 'HX93'
 
