@@ -51,13 +51,14 @@ def convertRawData(d):
 
 humidifier_delay = datetime.timedelta(seconds=300)
 humidifier_start = datetime.datetime.now() - humidifier_delay
-humidifier_stop = datetime.datetime.now()
+humidifier_stop = datetime.datetime.now() - humidifier_delay
 
 class humidity_timer():
     def __init__(self):
         logging.info('timer comes alive')
-        self.timer = Timer(30,self.relay_off)
+        self.timer = None
     def start(self):
+        self.timer = Timer(30,self.relay_off)
         humidity_running = True
         humidifier_start = datetime.datetime.now()
         logging.info('humidity timer on')
@@ -68,6 +69,11 @@ class humidity_timer():
         humidity_running = False
         humidifier_stop = datetime.datetime.now()
         GPIO.output(RELAY,False)
+    def is_alive(self):
+        if self.timer is not None:
+            return self.timer.is_alive()
+        else:
+            return False
 
 htimer = humidity_timer()
 
@@ -104,6 +110,8 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == SOURCE_ADDR:
+                logging.info((datetime.datetime.now() - humidifier_stop))
+                logging.info(humidifier_delay)
                 if (sensor == SENSOR_NAME) and ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
                     if sensor_data[0] < HUMIDITY_LOW and not htimer.is_alive():
                         logging.info('Setting pin high')
