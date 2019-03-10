@@ -112,7 +112,8 @@ while True:
             logging.info(r.status_code)
             logging.info(r.text)
             if sourceAddress == SOURCE_ADDR:
-                logging.info((datetime.datetime.now() - humidifier_stop))
+                logging.info(datetime.datetime.now())
+                logging.info(humidifier_stop)
                 logging.info(humidifier_delay)
                 if (sensor == SENSOR_NAME) and ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
                     if sensor_data[0] < HUMIDITY_LOW and not htimer.is_alive():
