@@ -55,11 +55,14 @@ humidifier_stop = datetime.datetime.now()
 
 class humidity_timer():
     def __init__(self):
+        logging.info('timer comes alive')
+        self.timer = Timer(30,self.relay_off)
+    def start(self):
         humidity_running = True
         humidifier_start = datetime.datetime.now()
         logging.info('humidity timer on')
         GPIO.output(RELAY,True)
-        self.timer = Timer(30,self.relay_off)
+        self.timer.start()
     def relay_off(self):
         logging.info('humidity timer off')
         humidity_running = False
