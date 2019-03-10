@@ -49,7 +49,7 @@ xbee.tx(frame='0x1', dest_addr_long=VENTILATION_DEST_ADDR_LONG, dest_addr=VENTIL
 def convertRawData(d):
     return float(d) / 100
 
-humidifier_delay = timedelta(seconds=300)
+humidifier_delay = datetime.timedelta(seconds=300)
 humidifier_start = datetime.datetime.now() - humidifier_delay
 humidifier_stop = datetime.datetime.now()
 
