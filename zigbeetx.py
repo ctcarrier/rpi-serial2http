@@ -31,7 +31,7 @@ logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format='%(asctime
 logging.info('Started %s' % __file__)
 
 HUMIDITY_LOW = 87
-HUMIDITY_HIGH = 92
+HUMIDITY_HIGH = 94
 SOURCE_ADDR = '0013a200410464c0'
 SENSOR_NAME = 'HX93'
 
@@ -58,7 +58,7 @@ class humidity_timer():
         logging.info('timer comes alive')
         self.timer = None
     def start(self):
-        self.timer = Timer(30,self.relay_off)
+        self.timer = Timer(60,self.relay_off)
         humidity_running = True
         humidifier_start = datetime.datetime.now()
         logging.info('humidity timer on')
