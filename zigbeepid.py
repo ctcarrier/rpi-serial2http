@@ -86,7 +86,7 @@ while True:
             logging.info(r.text)
             if sourceAddress == SOURCE_ADDR:
                 
-                if (sensor == GAS_SENSOR_NAME) and ((datetime.datetime.now() - humidifier_stop) > humidifier_delay) :
+                if (sensor == GAS_SENSOR_NAME) :
                     control=pid(sensor_data[0])
                     logging.info("New reading: " + sensor_data[0] + " sets control to " + control)
                     if control > 0:
